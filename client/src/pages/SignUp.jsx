@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import wall from "/wall.jpg";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
 const SignUp = () => {
+
+    const {createUser} = useContext(AuthContext);
 
     const handleSignUp = (e) => {
         e.preventDefault();
@@ -13,6 +17,14 @@ const SignUp = () => {
 
         const signUp = { name, email, password };
         console.log(signUp);
+
+        createUser(email, password)
+            .then(result => {
+                console.log('User registered successfully', result.user);
+            })
+            .catch(err => {
+                console.log("Error Occured", err);
+            })
     }
 
     return (
